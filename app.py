@@ -1,12 +1,17 @@
-from flask import Flask, jsonify
+from flask import Flask
+from src.models import db, ma
+from config.settings import DATABASE_URI
+from src.routes.characters_route import character_bp
 
-app = Flask(__name__)
+def create_app():
+    app = Flask(__name__)
+    app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI
+    app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-@app.route("/")
-def hello_world():
-    return jsonify({
-        "hello" : "world"
-    })
+    db.init_app(app)
+    ma.init_app(app)
 
-if __name__ == "__main__":
-    app.run(debug=True)
+    from src.routes.characters_route import character_bp
+    app.register_blueprint(character_bp, url_prefix='/character')
+    
+    return app

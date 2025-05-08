@@ -9,6 +9,8 @@ class Character(db.Model):
     species = db.Column(db.String(50), nullable=False)
     type = db.Column(db.String(50), nullable=False)
     gender = db.Column(db.String(50), nullable=False)
+    image = db.Column(db.String(100), nullable=False)
+
     
     def __repr__(self):
         return f"<Character {self.name}"
@@ -20,6 +22,14 @@ class CharacterOutput(ma.Schema):
     species = ma.String()
     type = ma.String()
     gender = ma.String()
+    image = ma.String()
+    
+
+class CharactersOutput(ma.Schema):
+    id = ma.Integer()
+    name = ma.String()
+    status = ma.String()
+    image = ma.String()
 
 character_output = CharacterOutput()
-characters_output = CharacterOutput(many=True)
+characters_output = CharactersOutput(many=True)

@@ -10,8 +10,7 @@ def create_app():
 
     db.init_app(app)
     ma.init_app(app)
-
-    from src.routes.characters_route import character_bp
+    
     app.register_blueprint(character_bp, url_prefix='/character')
     
     return app

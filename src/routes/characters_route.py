@@ -13,4 +13,3 @@ def get_all_characters():
 @character_bp.route("/<int:char_id>", methods=["GET"])
 def get_by_id(char_id):
     return controller_characters.get_character_by_id(char_id)
-

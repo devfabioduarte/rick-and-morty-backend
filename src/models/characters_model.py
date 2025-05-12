@@ -13,7 +13,7 @@ class Character(db.Model):
 
     
     def __repr__(self):
-        return f"<Character {self.name}"
+        return f"<Character {self.name}>"
     
 class CharacterOutput(ma.Schema):
     id = ma.Integer()

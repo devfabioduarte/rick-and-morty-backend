@@ -1,4 +1,4 @@
-from flask import jsonify, request
+from flask import jsonify
 from src.services.characters_service import CharacterService
 from src.models.characters_model import characters_output
 
@@ -10,28 +10,17 @@ class CharacterController():
         
     def get_all_characters(self):       
         try:
-            page = request.args.get('page',1, type=int)
-            per_page = 20
-
-            filters = {
-                'name' : request.args.get('name'.strip().lower())
-            }
-
-            filters = {k: v for k, v in filters.items() if v is not None}
-
-            result = self.character_service.get_all_characters(page, per_page, filters)
-
-            data = characters_output.dump(result['data'])
-
+            result = CharacterService.get_all_characters(self)
+            
             return jsonify({
                 "success" : True,
                 "message" : "Characters retrieved successfully",
-                "characters" : data,
+                "characters" : result["characters"],
                 'pagination': {
-                'total': result['total'],
-                'pages': result['pages'],
-                'current_page': result['current_page'],
-                'per_page': per_page
+                'total': result["total"],
+                'pages': result["pages"],
+                'current_page': result["current_page"],
+                'per_page': result.get("per_page", 20)
                             }           
                 }), 200
         except Exception as e:

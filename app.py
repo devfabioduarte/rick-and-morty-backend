@@ -11,6 +11,6 @@ def create_app():
     db.init_app(app)
     ma.init_app(app)
     
-    app.register_blueprint(character_bp, url_prefix='/character')
+    app.register_blueprint(character_bp, url_prefix='/characters')
     
     return app

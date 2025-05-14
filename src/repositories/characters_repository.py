@@ -1,4 +1,7 @@
 from src.models.characters_model import Character, db
+from src.models.locations_model import Location
+from src.models.episodes_model import Episode
+from src.models.characters_episodes import CharacterEpisodes
 
 class CharacterRepository:
     

@@ -1,34 +1,21 @@
 from flask import jsonify
 from src.services.characters_service import CharacterService
-from src.models.characters_model import characters_output
+from src.utils.api_response import ApiResponse
 
 
 class CharacterController():
     
     def __init__(self):
         self.character_service = CharacterService()
+        self.api_response = ApiResponse()
     
-    def get_all_characters(self, page, per_page):       
+    def get_all_characters(self, page, per_page, name):       
         try:
-            result = self.character_service.get_all_characters(page, per_page)
-            
-            return jsonify({
-                "success" : True,
-                "message" : "Characters retrieved successfully",
-                "characters" : result["characters"],
-                'pagination': {
-                'total': result["total"],
-                'pages': result["pages"],
-                'current_page': result["current_page"]
-                            }           
-                }), 200
+            result = self.character_service.get_all_characters(page, per_page, name)
+
+            return self.api_response.success(result)
         except Exception as e:
-            return jsonify({
-                "success" : False,
-                "message" : "Failed to retrieve characters",
-                "error" : str(e),
-                "data" : None
-            }), 500
+            return self.api_response.error(errors=str(e))
 
     def get_character_by_id(self, char_id):
         try:

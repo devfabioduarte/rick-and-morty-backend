@@ -17,8 +17,12 @@ class Character(db.Model):
     location_id = db.Column(db.Integer, db.ForeignKey('locations.id'))
     location = db.relationship("Location",foreign_keys=[location_id], back_populates='residents', uselist=True, lazy=True)
 
-    episodes = db.relationship('CharacterEpisodes', back_populates='character', uselist=True, lazy=True)
+    episodes = db.relationship('Episode',secondary='character_episode', back_populates='characters', uselist=True, lazy=True)
 
+    @property
+    def last_seen(self):
+        return self.episodes[-1].air_date
+    
     def __repr__(self):
         return f"<Character {self.name}>"
     
@@ -33,8 +37,8 @@ class CharacterOutput(ma.Schema):
 
     location = ma.Nested("LocationOutput", many=True)
     origin = ma.Nested("LocationOutput", many=True)
+    last_seen = ma.String(attribute="last_seen")
     
-
 class CharactersOutput(ma.Schema):
     id = ma.Integer()
     name = ma.String()

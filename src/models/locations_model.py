@@ -11,6 +11,7 @@ class Location(db.Model):
     native = db.relationship('Character',foreign_keys="Character.origin_id", back_populates='origin', uselist=True, lazy=True)
     residents = db.relationship('Character',foreign_keys="Character.location_id", back_populates='location', uselist=True, lazy=True)
 
+
     def __repr__(self):
         return f"<Locations {self.name}>"
 

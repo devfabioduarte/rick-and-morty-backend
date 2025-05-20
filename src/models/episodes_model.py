@@ -10,7 +10,6 @@ class Episode(db.Model):
 
     episodes = db.relationship('CharacterEpisodes', back_populates='episode', uselist=True, lazy=True)
 
-
     def __repr__(self):
         return f"<Episodes {self.name}>"
 

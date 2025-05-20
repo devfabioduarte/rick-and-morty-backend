@@ -19,8 +19,7 @@ class CharacterController():
                 'pagination': {
                 'total': result["total"],
                 'pages': result["pages"],
-                'current_page': result["current_page"],
-                'per_page': result.get("per_page", 20)
+                'current_page': result["current_page"]
                             }           
                 }), 200
         except Exception as e:

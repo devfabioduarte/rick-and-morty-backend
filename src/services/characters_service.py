@@ -7,26 +7,27 @@ class CharacterService:
         self.repository = CharacterRepository()
 
     def get_all_characters(self, page, per_page):
+        per_page = 20
 
         filters = {
             'name' : request.args.get('name', '').strip()
             }
 
-        filters = {k: v for k, v in filters.items() if v is not None}
-
         print("Filtros aplicados:", filters)
 
-        query = CharacterRepository.get_all_characters(self, filters)
-        paginated = query.paginate(page=page, per_page=per_page, error_out=False)
+        characters = CharacterRepository.get_all_characters(self,
+        page, 
+        per_page, 
+        filters
+        )
         
-
-        data = characters_output.dump(paginated.items)
+        data = characters_output.dump(characters.items)
         return {
             "characters" : data,
-            "data": paginated.items,
-            "total": paginated.total,
-            "pages": paginated.pages,
-            "current_page": paginated.page
+            "data": characters.items,
+            "total": characters.total,
+            "pages": characters.pages,
+            "current_page": characters.page
         }
 
     def get_character_by_id (self, char_id):

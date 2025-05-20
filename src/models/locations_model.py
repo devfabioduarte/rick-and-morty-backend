@@ -11,6 +11,9 @@ class Location(db.Model):
     native = db.relationship('Character',foreign_keys="Character.origin_id", back_populates='origin', uselist=True, lazy=True)
     residents = db.relationship('Character',foreign_keys="Character.location_id", back_populates='location', uselist=True, lazy=True)
 
+    @property
+    def residents_count(self):
+        return len(self.residents)
 
     def __repr__(self):
         return f"<Locations {self.name}>"
@@ -21,3 +24,4 @@ class LocationOutput(ma.Schema):
     name = ma.String()
     type = ma.String()
     dimension = ma.String()
+    residents_count = ma.Integer(attribute="residents_count")

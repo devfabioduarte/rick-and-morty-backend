@@ -2,20 +2,19 @@ from flask import jsonify
 
 class ApiResponse:
 
-    def success(data=None, message="Success"):
+    def success(self, data=None):
         response = {
-            "sucess": True,
-            "message" : message,
-            "data" : data or {}
-        }
-
+            "success": True,
+            "message" : "Success",
+            "characters" : data,
+            }
         return jsonify(response), 200
         
-    def error(message="Error", errors=None):
+    def error(self, errors=None):
     
         response = {
         "success": False,
-        "message": message,
-        "errors": errors or []
+        "message": "Error",
+        "errors": errors 
         }
         return jsonify(response), 500

@@ -4,34 +4,33 @@ from flask import request
 
 class CharacterService:
     def __init__(self):
-        self.repository = CharacterRepository()
+        self.character_repository = CharacterRepository()
 
-    def get_all_characters(self, page, per_page):
+    def get_all_characters(self, page, per_page, name):
         per_page = 20
 
         filters = {
-            'name' : request.args.get('name', '').strip()
+            'name' : name
             }
 
-        print("Filtros aplicados:", filters)
-
-        characters = CharacterRepository.get_all_characters(self,
+        characters = self.character_repository.get_all_characters(
         page, 
         per_page, 
         filters
         )
         
         data = characters_output.dump(characters.items)
+
         return {
             "characters" : data,
-            "data": characters.items,
-            "total": characters.total,
-            "pages": characters.pages,
-            "current_page": characters.page
+            "total_pages" : characters.pages,
+            "total_characters" : characters.total, 
+            "current_page" : page,
+            "per_page" : per_page,
         }
 
     def get_character_by_id (self, char_id):
-        character = self.repository.get_by_id(char_id)
+        character = self.character_repository.get_by_id(char_id)
         if character:
             return character_output.dump(character)
         return None

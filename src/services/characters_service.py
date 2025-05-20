@@ -6,9 +6,7 @@ class CharacterService:
     def __init__(self):
         self.repository = CharacterRepository()
 
-    def get_all_characters(self):
-        page = request.args.get('page',1, type=int)
-        per_page = 20
+    def get_all_characters(self, page, per_page):
 
         filters = {
             'name' : request.args.get('name', '').strip()

@@ -7,10 +7,10 @@ class CharacterController():
     
     def __init__(self):
         self.character_service = CharacterService()
-        
-    def get_all_characters(self):       
+    
+    def get_all_characters(self, page, per_page):       
         try:
-            result = CharacterService.get_all_characters(self)
+            result = self.character_service.get_all_characters(page, per_page)
             
             return jsonify({
                 "success" : True,

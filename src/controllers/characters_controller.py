@@ -20,23 +20,11 @@ class CharacterController():
     def get_character_by_id(self, char_id):
         try:
             character = self.character_service.get_character_by_id(char_id)
+            
             if character:
-                return jsonify({
-                    "success" : True,
-                    "message" : "Character retrieved successfully",
-                    "data" : character
-                }), 200
+                return self.api_response.success(character)
             else:
-                return jsonify({
-                    "success" : False,
-                    "message" : "Character not found",
-                    "data" : None
-                }), 404
+                return self.api_response.error(message="Character not found")
         except Exception as e:
-            return jsonify({
-                "success" : False,
-                "message" : "Error retrieving character",
-                "error" : str(e),
-                "data" : None
-            }), 500
+            return self.api_response.error(errors=str(e))
             

@@ -9,7 +9,7 @@ controller_characters = CharacterController()
 def get_all_characters():
     
     page = request.args.get('page', 1, type=int)
-    per_page = request.args.get('per_page', 10, type=int)
+    per_page = request.args.get('per_page', 40, type=int)
     
     return controller_characters.get_all_characters(page, per_page)
 

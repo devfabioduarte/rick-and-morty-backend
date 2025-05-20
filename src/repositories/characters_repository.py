@@ -5,16 +5,16 @@ from src.models.characters_episodes import CharacterEpisodes
 
 class CharacterRepository:
     
-    def get_all_characters(self,filters=None):
+    def get_all_characters(self, page, per_page, filters=None):
         try:
             query = Character.query
         
             if filters:
-                if 'name' in filters and filters['name']:
-                    name_filter = f'%{filters["name"]}%'
-                    query = query.filter(Character.name.ilike(name_filter))
+                name_filter = f'%{filters["name"]}%'
+                query = query.filter(Character.name.ilike(name_filter))
             
-            return query
+            paginated = query.paginate(page=page, per_page=per_page, error_out=False)
+            return paginated
         
         except Exception:
             db.session.rollback()

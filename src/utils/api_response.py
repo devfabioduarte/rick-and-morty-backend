@@ -10,11 +10,11 @@ class ApiResponse:
             }
         return jsonify(response), 200
         
-    def error(self, errors=None):
+    def error(self, errors=None, message="An error occurred"):
     
         response = {
         "success": False,
-        "message": "Error",
+        "message": message,
         "errors": errors 
         }
         return jsonify(response), 500

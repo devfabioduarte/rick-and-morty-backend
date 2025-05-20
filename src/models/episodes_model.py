@@ -8,7 +8,7 @@ class Episode(db.Model):
     air_date = db.Column(db.String(50), nullable=False)
     episode = db.Column(db.String(50), nullable=False)
 
-    episodes = db.relationship('CharacterEpisodes', back_populates='episode', uselist=True, lazy=True)
+    characters = db.relationship('Character',secondary='character_episode', back_populates='episodes', uselist=True, lazy=True)
 
     def __repr__(self):
         return f"<Episodes {self.name}>"

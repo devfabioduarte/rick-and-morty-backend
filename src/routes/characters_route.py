@@ -9,10 +9,9 @@ controller_characters = CharacterController()
 def get_all_characters():
     
     page = request.args.get('page', 1, type=int)
-    per_page = request.args.get('per_page', 20, type=int)
     name = request.args.get('name', '', type=str).strip()
     
-    return controller_characters.get_all_characters(page, per_page, name)
+    return controller_characters.get_all_characters(page, name)
 
 @character_bp.route("/<int:char_id>", methods=["GET"])
 def get_by_id(char_id):

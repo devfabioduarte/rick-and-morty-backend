@@ -7,9 +7,9 @@ class CharacterController():
         self.character_service = CharacterService()
         self.api_response = ApiResponse()
     
-    def get_all_characters(self, page, per_page, name):       
+    def get_all_characters(self, page, name):       
         try:
-            result = self.character_service.get_all_characters(page, per_page, name)
+            result = self.character_service.get_all_characters(page, name)
 
             return self.api_response.api_reponse(True,
                                     result,

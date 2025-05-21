@@ -1,4 +1,4 @@
-from src.models import db, ma
+from src.models import db
 
 class CharacterEpisodes(db.Model):
     __tablename__ = 'character_episode'
@@ -8,9 +8,5 @@ class CharacterEpisodes(db.Model):
 
     def __repr__(self):
         return f"<CharacterEpisodes {self.name}>"
-    
-class CharacterEpisodesOutput(ma.Schema):
-    episode_id = ma.Integer()
-    character_id = ma.Integer()
     
     

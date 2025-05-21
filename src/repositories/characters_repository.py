@@ -2,13 +2,11 @@ from src.models.characters_model import Character, db
 
 class CharacterRepository:
     
-    def get_all_characters(self, page, per_page, filters=None):
+    def get_all_characters(self, page, per_page, name=None):
         try:
             query = Character.query
-        
-            if filters:
-                name_filter = f'%{filters["name"]}%'
-                query = query.filter(Character.name.ilike(name_filter))
+            if name:
+                 query = query.filter(Character.name.ilike(f'%{name}%'))
             
             paginated = query.paginate(page=page, per_page=per_page, error_out=False)
             return paginated

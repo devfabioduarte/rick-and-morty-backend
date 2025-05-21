@@ -9,14 +9,10 @@ class CharacterService:
     def get_all_characters(self, page, name):
         per_page = 20
 
-        filters = {
-            'name' : name
-            }
-
         characters = self.character_repository.get_all_characters(
         page, 
         per_page, 
-        filters
+        name
         )
         
         data = characters_output.dump(characters.items)

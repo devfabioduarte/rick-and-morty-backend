@@ -26,24 +26,20 @@ class Character(db.Model):
     def __repr__(self):
         return f"<Character {self.name}>"
     
-class CharacterOutput(ma.Schema):
-    id = ma.Integer()
-    name = ma.String()
-    status = ma.String()
-    species = ma.String()
-    type = ma.String()
-    gender = ma.String()
-    image = ma.String()
-
-    location = ma.Nested("LocationOutput")
-    origin = ma.Nested("LocationOutput")
-    last_seen = ma.String(attribute="last_seen")
-    
 class CharactersOutput(ma.Schema):
     id = ma.Integer()
     name = ma.String()
     status = ma.String()
     image = ma.String()
+
+class CharacterOutput(CharactersOutput, ma.Schema):
+    species = ma.String()
+    type = ma.String()
+    gender = ma.String()
+
+    location = ma.Nested("LocationOutput")
+    origin = ma.Nested("LocationOutput")
+    last_seen = ma.String(attribute="last_seen")
 
 character_output = CharacterOutput()
 characters_output = CharactersOutput(many=True)

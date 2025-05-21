@@ -8,8 +8,9 @@ class CharacterRepository:
             if name:
                  query = query.filter(Character.name.ilike(f'%{name}%'))
             
-            paginated = query.paginate(page=page, per_page=per_page, error_out=False)
-            return paginated
+            total = query.count()
+            pagination = query.offset((page - 1) * per_page).limit(per_page).all()
+            return pagination, total
         
         except Exception:
             db.session.rollback()

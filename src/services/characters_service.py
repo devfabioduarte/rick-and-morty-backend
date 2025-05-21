@@ -8,19 +8,15 @@ class CharacterService:
 
     def get_all_characters(self, page, name):
         per_page = 20
-
-        characters = self.character_repository.get_all_characters(
-        page, 
-        per_page, 
-        name
-        )
+        pagination, total = self.character_repository.get_all_characters(page, per_page, name)
+        data = characters_output.dump(pagination)
+        total_pages = (total + per_page - 1) // per_page
         
-        data = characters_output.dump(characters.items)
 
         return {
             "characters" : data,
-            "total_pages" : characters.pages,
-            "total_characters" : characters.total, 
+            "total_pages" : total_pages,
+            "total_characters" : total, 
             "current_page" : page,
             "per_page" : per_page,
         }

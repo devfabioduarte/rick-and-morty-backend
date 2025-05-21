@@ -12,10 +12,10 @@ class Character(db.Model):
     image = db.Column(db.String(100), nullable=False)
 
     origin_id = db.Column(db.Integer, db.ForeignKey('locations.id'))
-    origin = db.relationship("Location",foreign_keys=[origin_id], back_populates='native', uselist=True, lazy=True)
+    origin = db.relationship("Location",foreign_keys=[origin_id], back_populates='native', uselist=False, lazy=True)
     
     location_id = db.Column(db.Integer, db.ForeignKey('locations.id'))
-    location = db.relationship("Location",foreign_keys=[location_id], back_populates='residents', uselist=True, lazy=True)
+    location = db.relationship("Location",foreign_keys=[location_id], back_populates='residents', uselist=False, lazy=True)
 
     episodes = db.relationship('Episode',secondary='character_episode', back_populates='characters', uselist=True, lazy=True)
 

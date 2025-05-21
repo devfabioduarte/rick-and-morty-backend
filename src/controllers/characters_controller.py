@@ -1,5 +1,6 @@
 from src.services.characters_service import CharacterService
 from src.utils.api_response import ApiResponse
+from werkzeug.exceptions import NotFound
 
 class CharacterController():
     
@@ -29,6 +30,12 @@ class CharacterController():
                                     character,
                                     "Characters retrieved successfully",
                                     )
+        except NotFound as e:
+            return self.api_response.api_reponse(False, None, str(e)), 404
+        
         except Exception as e:
-            return self.api_response.api_reponse(errors=str(e))
+            return self.api_response.api_reponse(False,
+                                    None,
+                                    f"Error retrieving character with id {char_id}",
+                                    )
             

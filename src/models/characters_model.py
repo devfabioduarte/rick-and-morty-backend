@@ -35,8 +35,8 @@ class CharacterOutput(ma.Schema):
     gender = ma.String()
     image = ma.String()
 
-    location = ma.Nested("LocationOutput", many=True)
-    origin = ma.Nested("LocationOutput", many=True)
+    location = ma.Nested("LocationOutput")
+    origin = ma.Nested("LocationOutput")
     last_seen = ma.String(attribute="last_seen")
     
 class CharactersOutput(ma.Schema):

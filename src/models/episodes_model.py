@@ -12,10 +12,3 @@ class Episode(db.Model):
 
     def __repr__(self):
         return f"<Episodes {self.name}>"
-
-
-class EpisodesOutput(ma.Schema):
-    id = ma.Integer()
-    name = ma.String()
-    air_date = ma.String()
-    episode = ma.String()

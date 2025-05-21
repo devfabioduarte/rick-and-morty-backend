@@ -1,6 +1,6 @@
 from src.repositories.characters_repository import CharacterRepository
 from src.models.characters_model import character_output, characters_output
-from flask import request
+from werkzeug.exceptions import NotFound
 
 class CharacterService:
     def __init__(self):
@@ -33,5 +33,5 @@ class CharacterService:
         character = self.character_repository.get_by_id(char_id)
         if character:
             return character_output.dump(character)
-        return None
+        raise NotFound(f"Character with id {char_id} not found")
     

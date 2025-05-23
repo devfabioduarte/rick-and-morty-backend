@@ -12,7 +12,6 @@ class CharacterService:
         data = characters_output.dump(pagination)
         total_pages = (total + per_page - 1) // per_page
         
-
         return {
             "characters" : data,
             "total_pages" : total_pages,
@@ -23,7 +22,6 @@ class CharacterService:
 
     def get_character_by_id (self, char_id):
         character = self.character_repository.get_by_id(char_id)
-        if character:
-            return character_output.dump(character)
-        raise NotFound(f"Character with id {char_id} not found")
-    
+        if not character:
+            raise NotFound(f"Character with id {char_id} not found")
+        return character_output.dump(character)

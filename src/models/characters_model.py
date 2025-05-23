@@ -31,9 +31,9 @@ class CharactersOutput(ma.Schema):
     name = ma.String()
     status = ma.String()
     image = ma.String()
-
-class CharacterOutput(CharactersOutput, ma.Schema):
     species = ma.String()
+
+class CharacterOutput(CharactersOutput):
     type = ma.String()
     gender = ma.String()
 

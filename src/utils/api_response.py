@@ -8,6 +8,7 @@ class ApiResponse:
             "message" : message,
             "characters" : data,
             }
+        
         return jsonify(response), status_code 
         
     

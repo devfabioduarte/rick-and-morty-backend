@@ -1,6 +1,6 @@
 from flask import Flask
 from src.models import db, ma
-from config.settings import DATABASE_URI, front_end_url, environment
+from config.settings import DATABASE_URI
 from src.routes.characters_route import character_bp
 from flask_cors import CORS
 from src.utils.constants import ENVIRONMENTS

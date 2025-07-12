@@ -1,28 +1,23 @@
 from flask import Flask
 from src.models import db, ma
-from config.settings import DATABASE_URI
+from config.settings import DATABASE_URI, front_end_url, environment
 from src.routes.characters_route import character_bp
 from flask_cors import CORS
+from src.utils.constants import ENVIRONMENTS
 
 app = Flask(__name__)
-# Configuração mais permissiva do CORS para desenvolvimento
 
-CORS(app, 
-     resources={r"/*": {
-         "origins": ["http://localhost:5173"],
-         "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-         "allow_headers": ["Content-Type", "Authorization"]
-     }},
-     supports_credentials=True)
+#parte do cors
+origins_map = {
+    ENVIRONMENTS.LOCAL.value: ["*"],
+    ENVIRONMENTS.PRODUCTION.value: [front_end_url]
+}
 
-# Additional CORS headers for all responses
-@app.after_request
-def after_request(response):
-    # Allow specific origins instead of *
-    response.headers.add('Access-Control-Allow-Credentials', 'true')
-    response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
-    response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
-    return response
+allowed_origins = origins_map.get(environment, origins_map[ENVIRONMENTS.PRODUCTION.value])
+
+print(allowed_origins)
+
+CORS(app, origins=allowed_origins)
 
 app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False

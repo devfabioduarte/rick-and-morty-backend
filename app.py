@@ -5,6 +5,8 @@ from src.routes.characters_route import character_bp
 from flask_cors import CORS
 from src.utils.constants import ENVIRONMENTS
 import os
+from dotenv import load_dotenv
+load_dotenv
 
 app = Flask(__name__)
 

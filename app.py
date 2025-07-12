@@ -26,6 +26,12 @@ print(allowed_origins)
 
 CORS(app, resources={r"/*": {"origins": allowed_origins}})
 
+def after_request(response):
+    response.headers.add('Access-Control-Allow-Origin', front_end_url)
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+    response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
+    return response
+
 app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 

@@ -24,7 +24,7 @@ allowed_origins = origins_map.get(environment, origins_map[ENVIRONMENTS.PRODUCTI
 
 print(allowed_origins)
 
-CORS(app, origins=allowed_origins)
+CORS(app, resources={r"/*": {"origins": allowed_origins}})
 
 app.config['SQLALCHEMY_DATABASE_URI'] = DATABASE_URI
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False

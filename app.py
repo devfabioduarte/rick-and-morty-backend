@@ -4,10 +4,15 @@ from config.settings import DATABASE_URI, front_end_url, environment
 from src.routes.characters_route import character_bp
 from flask_cors import CORS
 from src.utils.constants import ENVIRONMENTS
+import os
 
 app = Flask(__name__)
 
 #parte do cors
+
+front_end_url = os.getenv("FRONT_END_URL")
+environment = os.getenv("ENVIRONMENT")
+
 origins_map = {
     ENVIRONMENTS.LOCAL.value: ["*"],
     ENVIRONMENTS.PRODUCTION.value: [front_end_url]
